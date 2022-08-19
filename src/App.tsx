@@ -1,13 +1,15 @@
 import React from 'react';
 import './App.css';
+import LandingPage from './components/LandingPage';
+import HomePage from './components/HomePage';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <p className="font-bold">font weight 800 입니다.</p>
-      <p className="font-medium">font weight 600 입니다.</p>
-      <p className="font-light">font weight 400 입니다.</p>
-    </div>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/landing" element={<LandingPage />} />
+    </Routes>
   );
 }
 
