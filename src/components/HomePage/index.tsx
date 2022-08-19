@@ -1,10 +1,11 @@
 import React from 'react';
+import * as $ from './style';
 
 const HomePage = () => {
   return (
-    <div>
+    <$.Wrapper>
       <p>Hello Home Page</p>
-    </div>
+    </$.Wrapper>
   );
 };
 
