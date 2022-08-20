@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { CSSProperties } from 'styled-components';
 import useParticipantInsightQuery, {
   ROLE_COLORS,
 } from '../../hooks/useParticipantInsightQuery';
@@ -76,7 +76,7 @@ const ParticipantInsightPage = () => {
             <BoxContainer backgroundColor={'white'} width="500px" key={role}>
               <>
                 <ItemTitle>
-                  <Bar /> {role}
+                  <Bar color={ROLE_COLORS[role].on}/> {role}
                 </ItemTitle>
                 {data &&
                   Object.entries(data[role]).map(
@@ -120,10 +120,11 @@ const LabelList = styled.div`
   gap: 24px;
 `;
 
-const Bar = styled.div`
+const Bar = styled.div<{color: CSSProperties['color']}>`
   width: 4px;
   height: 32px;
-  background: ${GRAY_100};
+  background: ${({color}) => color};
+  border-radius: 4px;
 `;
 const ItemTitle = styled.div`
   display: flex;

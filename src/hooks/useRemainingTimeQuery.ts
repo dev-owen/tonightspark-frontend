@@ -66,7 +66,7 @@ const useRemainingTimeQuery = () => {
         ],
         [],
       ),
-      valueFormatter: (value: number) => formatSeconds(value),
+      valueFormatter: (value: number) => `${value}%`,
     }),
     [data],
   );
