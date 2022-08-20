@@ -2,6 +2,7 @@ import { format } from 'date-fns/fp'
 import styled, { CSSProperties } from 'styled-components'
 import { BLUE_10, BLUE_100, GRAY_500, GRAY_700, GREEN_10, GREEN_100, ORANGE_10, ORANGE_100 } from '../../utils/color'
 import { formatNumber } from '../../utils/number'
+import Badge from '../Badge'
 
 const dummys = [
     {
@@ -101,25 +102,6 @@ const Header = styled.div`
     align-items: flex-start;
     margin-top: 112px;
     padding-left: 20px;
-`
-
-const Badge = styled.div<{ color: CSSProperties['color'], backgroundColor: CSSProperties['backgroundColor'] }>`
-    font-size: 28px;
-    font-weight: 800;
-    color: ${({ color }) => color};
-    background-color: ${({ backgroundColor }) => backgroundColor};
-    border: 1px solid ${({ backgroundColor }) => backgroundColor};
-    border-radius: 8px;
-    box-sizing: border-box;
-    width: min-content; /* 151px */
-    height: min-content; /* 44px */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    height: auto;
-    padding: 8px 16px 8px 16px;
 `
 const HeaderTitle = styled.div`
     margin-top: 28px;
