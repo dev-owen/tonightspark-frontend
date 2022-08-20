@@ -6,6 +6,7 @@ import Snippet from '../Snippet';
 import Sidebar from '../Sidebar';
 import { Route, Routes } from 'react-router-dom';
 import EnterPage from '../EnterPage';
+import ParticipationHour from '../ParticipationHour';
 
 const HomePage = () => {
   const [hash, setHash] = useRecoilState(creatorHashState);
@@ -32,7 +33,7 @@ const HomePage = () => {
           <Sidebar />
           <Routes>
             <Route index element={<div>participant insight</div>} />
-            <Route path="hour" element={<div>participation by hour</div>} />
+            <Route path="hour" element={<ParticipationHour />} />
             <Route path="area" element={<div>area information</div>} />
             <Route path="object" element={<div>object insight</div>} />
           </Routes>

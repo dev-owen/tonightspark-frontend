@@ -30,3 +30,8 @@ export const GRAY_200 = 'rgba(0, 0, 0, 0.2)';
 export const GRAY_100 = 'rgba(0, 0, 0, 0.1)';
 export const GRAY_50 = 'rgba(250, 250, 250, 1)';
 export const WHITE = 'rgba(255, 255, 255, 1)';
+
+export const RATE_100 = 'rgba(57, 211, 83, 1)';
+export const RATE_200 = 'rgba(38, 166, 65, 1)';
+export const RATE_300 = 'rgba(0, 109, 50, 1)';
+export const RATE_400 = 'rgba(14, 68, 41, 1)';
