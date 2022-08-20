@@ -1,25 +1,24 @@
 import React from 'react';
-import * as $ from './style';
+import { useSetRecoilState } from 'recoil';
+import { creatorHashState } from '../../state/creatorHashState';
 
 const HomePage = () => {
+  const setCreatorHash = useSetRecoilState(creatorHashState);
+
+  const handleChange = (id: string, value: string) => {
+    switch (id) {
+      case 'creatorHash':
+        setCreatorHash(value);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
-    <$.Wrapper>
-      <$.HomeCardContainer>
-        <div className="homeCardItem">
-          <p className="titleText">Please enter the ZEP access link.</p>
-          <p>We will organize the data of events and events on the map</p>
-          <p>made into indicators to make it easier to see.</p>
-          <div className="inputItem">
-            <input
-              className="homeInput"
-              type="text"
-              placeholder="Please enter the URL."
-            />
-            <span className="dot"></span>
-          </div>
-        </div>
-      </$.HomeCardContainer>
-    </$.Wrapper>
+    <div>
+      <p>Hello Landing Page</p>
+    </div>
   );
 };
 
