@@ -8,7 +8,7 @@ import { formatNumber } from '../utils/number';
 
 const fetchUseNumberOfVisitors = async (mapHash: string) => {
   const res = await fetch(
-    `http://54.164.45.6:8080/api/v1/collect/area-user/${mapHash}`,
+    `https://zepi-next.vercel.app/api/v1/page3/area-user/${mapHash}`,
   );
   const data = await res.json();
   return data;
@@ -24,6 +24,9 @@ const useNumberOfVisitorsQuey = () => {
   const { isLoading, data } = useQuery<NumberOfVisitors>(
     `numberOfVisitors/${mapHash}`,
     () => fetchUseNumberOfVisitors(mapHash),
+    // {
+    //   refetchInterval: 5000
+    // }
   );
 
   const visitorInfo: AreaInformation = useMemo(
