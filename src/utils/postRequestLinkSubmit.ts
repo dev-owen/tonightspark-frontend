@@ -13,7 +13,8 @@ export const postRequestLinkSubmit = async (mapHash: string) => {
       console.warn('Something went wrong.', error);
     })
     .then(async (res) => {
-      await fetch(`http://54.164.45.6:8080/api/v1/collect/`, {
+      await fetch(`https://zepi-next.vercel.app/api/v1/collect`, {
+      // await fetch(`http://54.164.45.6:8080/api/v1/collect/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

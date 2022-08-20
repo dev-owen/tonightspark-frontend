@@ -29,7 +29,7 @@ const ParticipationHour = () => {
   });
 
   const fetchPage2 = async (path: string) => {
-    return await fetch(`http://54.164.45.6:8080/api/v1/page2/${path}`).then(
+    return await fetch(`https://zepi-next.vercel.app/api/v1/page2/${path}`).then(
       (res) => res.json(),
     );
   };
