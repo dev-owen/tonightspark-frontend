@@ -8,6 +8,7 @@ import { Route, Routes } from 'react-router-dom';
 import EnterPage from '../EnterPage';
 import ParticipationHour from '../ParticipationHour';
 import AreaInformationPage from '../AreaInformationPage';
+import ParticipantInsightPage from '../ParticipantInsightPage';
 
 const HomePage = () => {
   const [hash, setHash] = useRecoilState(creatorHashState);
@@ -33,7 +34,7 @@ const HomePage = () => {
         <$.HomeContainer>
           <Sidebar />
           <Routes>
-            <Route index element={<div>participant insight</div>} />
+            <Route index element={<ParticipantInsightPage />} />
             <Route path="hour" element={<ParticipationHour />} />
             <Route path="area" element={<AreaInformationPage />} />
             <Route path="hour" element={<div>participation by hour</div>} />

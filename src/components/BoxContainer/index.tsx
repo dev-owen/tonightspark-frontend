@@ -1,9 +1,9 @@
 import styled, { CSSProperties } from "styled-components"
 
-const BoxContainer = styled.div<{ backgroundColor: CSSProperties['backgroundColor']; margin?:CSSProperties['margin'];  }>`
+const BoxContainer = styled.div<{ backgroundColor: CSSProperties['backgroundColor']; margin?:CSSProperties['margin']; width?: CSSProperties['width'];  }>`
     background-color: ${({ backgroundColor }) => backgroundColor};
     margin: ${({ margin = '' }) => margin};
-    width: 360px;
+    width: ${({ width = '360px' }) => width};
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
