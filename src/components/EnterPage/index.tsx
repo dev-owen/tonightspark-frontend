@@ -1,8 +1,24 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import * as $ from './style';
+import { isCorrectUrlFormat } from '../../utils/validation';
 
 const EnterPage = () => {
   const [isVerified, setIsVerified] = useState<boolean | undefined>();
+  const [url, setUrl] = useState<string>('');
+
+  const handleChange = (id: string, value: string) => {
+    switch (id) {
+      case 'url':
+        if (value === '') setIsVerified(undefined);
+        else if (isCorrectUrlFormat(value)) setIsVerified(true);
+        else setIsVerified(false);
+        setUrl(value);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <$.Wrapper>
       <$.EnterCardContainer isVerified={isVerified}>
@@ -15,8 +31,12 @@ const EnterPage = () => {
               className="enterInput"
               type="text"
               placeholder="Please enter the URL."
+              value={url}
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                handleChange('url', event.target.value)
+              }
             />
-            <span className="dot"></span>
+            <button>Enter</button>
           </div>
         </div>
       </$.EnterCardContainer>

@@ -16,6 +16,9 @@ export const BLUE_10 = 'rgba(21, 117, 255, 0.1)';
 export const GREEN_100 = 'rgba(23, 189, 131, 1)';
 export const GREEN_10 = 'rgba(23, 189, 131, 0.1)';
 
+export const RED_100 = 'rgba(253, 11, 69, 1)';
+export const RED_10 = 'rgba(253, 11, 69, 0.1)';
+
 export const GRAY_900 = 'rgba(0, 0, 0, 0.9)';
 export const GRAY_800 = 'rgba(0, 0, 0, 0.8)';
 export const GRAY_700 = 'rgba(0, 0, 0, 0.7)';
