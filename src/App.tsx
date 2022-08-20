@@ -4,6 +4,7 @@ import EnterPage from './components/EnterPage';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { creatorHashState } from './state/creatorHashState';
 import { useRecoilState } from 'recoil';
+import GlobalStyles from './styles/GlobalStyles';
 
 function App() {
   const navigate = useNavigate();
@@ -23,10 +24,13 @@ function App() {
   }, [hash]);
 
   return (
-    <Routes>
-      <Route path="enter" element={<EnterPage />} />
-      <Route path="home/*" element={<HomePage />} />
-    </Routes>
+    <>
+      <GlobalStyles />
+      <Routes>
+        <Route path="enter" element={<EnterPage />} />
+        <Route path="home/*" element={<HomePage />} />
+      </Routes>
+    </>
   );
 }
 
