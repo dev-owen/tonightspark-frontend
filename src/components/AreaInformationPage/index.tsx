@@ -19,14 +19,14 @@ export type AreaInformation = {
 
 const AreaInformationPage = () => {
   const numberOfVisitorsQuery = useNumberOfVisitorsQuey();
-  const remainingTimeQuery = useRemainingTimeQuery();
+  // const remainingTimeQuery = useRemainingTimeQuery();
 
   return (
     <Layout>
       {[
         numberOfVisitorsQuery.visitorInfo,
-        remainingTimeQuery.remainInfo,
-        remainingTimeQuery.bounceInfo,
+        // remainingTimeQuery.remainInfo,
+        // remainingTimeQuery.bounceInfo,
       ].map((info, index) => (
         <Group key={index}>
           <HeaderContainer>
