@@ -9,6 +9,7 @@ import {
   ORANGE_10,
   ORANGE_100,
 } from '../../utils/color';
+import formatSeconds from '../../utils/formatSeconds';
 import Badge from '../Badge';
 import BoxContainer from '../BoxContainer';
 import { HeaderContainer, HeaderDescription, HeaderTitle } from '../Header';
@@ -37,8 +38,7 @@ const dummys = [
       { label: 'Chainapsis', value: 3341 },
       { label: 'AWS', value: 1000 },
     ],
-    valueFormatter: (value: number) =>
-      format(`k'h' m'm' s's'`)(new Date(value * 100)),
+    valueFormatter: (value: number) => formatSeconds(value),
   },
   {
     mainColor: ORANGE_100,

@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import useParticipantInsightQuery, { ROLES, ROLE_COLORS } from "../../hooks/useParticipantInsightQuery"
 import { BLUE_100, GRAY_100, GRAY_600, GRAY_700, GREEN_100, INDIGO_10, INDIGO_100, ORANGE_100, PURPLE_100, YELLOW_100 } from "../../utils/color"
+import formatSeconds from "../../utils/formatSeconds"
 import { formatNumber } from "../../utils/number"
 import Badge from "../Badge"
 import BigLabel from "../BigLabel"
@@ -46,7 +47,7 @@ const ParticipantInsightPage = () => {
                                 <Item key={index}>
                                     <MiniLabel backgroundColor={LOOP_COLORS[index % LOOP_COLORS.length]}>{area}</MiniLabel>
                                     <ItemValue><span>Enter:</span>{visitedCount}</ItemValue>
-                                    <ItemValue><span>Stay Time:</span>{stayTime}</ItemValue>
+                                    <ItemValue><span>Stay Time:</span>{formatSeconds(stayTime)}</ItemValue>
                                 </Item>
                             ))}
                         </>

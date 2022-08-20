@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { AreaInformation } from '../components/AreaInformationPage';
 import { creatorHashState } from '../state/creatorHashState';
 import { GREEN_10, GREEN_100 } from '../utils/color';
+import formatSeconds from '../utils/formatSeconds';
 
 const fetchRemainingTime = async (mapHash: string) => {
   const res = await fetch(
@@ -40,8 +41,7 @@ const useRemainingTimeQuery = () => {
         ],
         [],
       ),
-      // @TODO 초 -> 17h 25m 3s 형태로 보여주는 포맷터 제작 필요
-      valueFormatter: (value: number) => format(`k'h' m'm' s's'`)(new Date(value * 100)),
+      valueFormatter: (value: number) => formatSeconds(value),
     }),
     [data],
   );

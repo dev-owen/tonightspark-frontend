@@ -26,7 +26,7 @@ const fetchParticipantInsight = async (mapHash: string) => {
     [ROLES.GUEST]: {
       area1: {
         visitedCount: 20,
-        stayTime: 20,
+        stayTime: 12257,
       },
       area2: {
         visitedCount: 40,
@@ -60,7 +60,7 @@ const fetchParticipantInsight = async (mapHash: string) => {
       },
       area2: {
         visitedCount: 40,
-        stayTime: 40
+        stayTime: 600
       }
     },
     [ROLES.Manager]: {
