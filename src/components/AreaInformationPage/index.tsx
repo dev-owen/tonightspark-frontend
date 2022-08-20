@@ -1,5 +1,6 @@
 import { format } from 'date-fns/fp'
 import styled from 'styled-components'
+import useNumberOfVisitorsQuey from '../../hooks/useNumberOfVisitorsQuey'
 import { BLUE_10, BLUE_100, GRAY_700, GREEN_10, GREEN_100, ORANGE_10, ORANGE_100 } from '../../utils/color'
 import { formatNumber } from '../../utils/number'
 import Badge from '../Badge'
@@ -7,21 +8,17 @@ import BoxContainer from '../BoxContainer'
 import { HeaderContainer, HeaderDescription, HeaderTitle } from '../Header'
 import MiniLabel from '../MiniLabel'
 
+export type AreaInformation = {
+    mainColor: string
+    subColor: string
+    totalValue: number
+    title: string
+    description: string
+    items: { label: string; value: number }[]
+    valueFormatter: (value: number) => string
+}
+
 const dummys = [
-    {
-        mainColor: BLUE_100,
-        subColor: BLUE_10,
-        totalValue: 3338 + 18 + 14 + 6,
-        title: 'Number of Visitors',
-        description: 'Number of users who visited the area',
-        items: [
-            { label: 'ZEP', value: 3338 },
-            { label: 'MS', value: 18 },
-            { label: 'Chainapsis', value: 14 },
-            { label: 'AWS', value: 6 }
-        ],
-        valueFormatter: (value: number) => formatNumber(value),
-    },
     {
         mainColor: GREEN_100,
         subColor: GREEN_10,
@@ -64,11 +61,14 @@ const dummys = [
         valueFormatter: (value: number) => `${value}%`,
     }
 ]
+
 const AreaInformationPage = () => {
+    const numberOfVisitorsQuery = useNumberOfVisitorsQuey()
+
     return (
         <Layout>
-            {dummys.map((dummy, index) => (
-                <Group key={index}> 
+            {[numberOfVisitorsQuery.areaInformation, ...dummys].map((dummy, index) => (
+                <Group key={index}>
                     <HeaderContainer marginTop="112px">
                         <Badge color={dummy.mainColor} backgroundColor={dummy.subColor}>{dummy.valueFormatter(dummy.totalValue)}</Badge>
                         <HeaderTitle marginTop="28px">{dummy.title}</HeaderTitle>
