@@ -3,6 +3,7 @@ import styled, { CSSProperties } from 'styled-components'
 import { BLUE_10, BLUE_100, GRAY_500, GRAY_700, GREEN_10, GREEN_100, ORANGE_10, ORANGE_100 } from '../../utils/color'
 import { formatNumber } from '../../utils/number'
 import Badge from '../Badge'
+import { HeaderContainer, HeaderDescription, HeaderTitle } from '../Header'
 
 const dummys = [
     {
@@ -65,12 +66,12 @@ const AreaInformationPage = () => {
     return (
         <Layout>
             {dummys.map((dummy, index) => (
-                <Group key={index}>
-                    <Header>
+                <Group key={index}> 
+                    <HeaderContainer>
                         <Badge color={dummy.mainColor} backgroundColor={dummy.subColor}>{dummy.valueFormatter(dummy.totalValue)}</Badge>
                         <HeaderTitle>{dummy.title}</HeaderTitle>
                         <HeaderDescription>{dummy.description}</HeaderDescription>
-                    </Header>
+                    </HeaderContainer>
                     <Container backgroundColor={dummy.subColor}>
                         {dummy.items.map((item, itemIndex) => (
                             <Item key={itemIndex}>
@@ -96,23 +97,7 @@ const Layout = styled.div`
     margin: 0 auto; 
 `
 const Group = styled.div``
-const Header = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-top: 112px;
-    padding-left: 20px;
-`
-const HeaderTitle = styled.div`
-    margin-top: 28px;
-    font-size: 28px;
-    font-weight: 800;
-`
-const HeaderDescription = styled.div`
-    margin-top: 16px;
-    font-size: 20px;
-    color: ${GRAY_500};
-`
+
 const Container = styled.div<{ backgroundColor: CSSProperties['backgroundColor'] }>`
     background-color: ${({ backgroundColor }) => backgroundColor};
     margin-top: 40px;
