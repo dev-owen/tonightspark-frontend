@@ -31,7 +31,7 @@ const AreaInformationPage = () => {
         <Group key={index}>
           <HeaderContainer>
             <Badge color={info.mainColor} backgroundColor={info.subColor}>
-              {info.valueFormatter(info.totalValue)}
+              {info.valueFormatter(info.totalValue)}{info.title==='Bounce Rate' ? ' avg' :''}
             </Badge>
             <HeaderTitle>{info.title}</HeaderTitle>
             <HeaderDescription>{info.description}</HeaderDescription>
