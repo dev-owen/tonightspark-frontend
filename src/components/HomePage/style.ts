@@ -14,7 +14,8 @@ export const Wrapper = styled.div`
 `;
 
 export const HomeContainer = styled.div`
-  width: 100%;
+  width: calc(100% - 300px);
   display: flex;
   flex-direction: row;
+  margin-left: 300px;
 `;

@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { GRAY_200, GRAY_500, INDIGO_10, PURPLE_100, WHITE } from '../../utils/color';
 
 export const Wrapper = styled.div`
+  position: fixed;
+  left: 0;
   width: 300px;
   height: 100%;
   background-color: ${WHITE};
