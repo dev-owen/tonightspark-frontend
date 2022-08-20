@@ -10,6 +10,43 @@ const EnterPage = () => {
   const [isVerified, setIsVerified] = useState<boolean | undefined>();
   const [url, setUrl] = useState<string>('');
   const [hash, setHash] = useRecoilState(creatorHashState);
+  const [title, setTitle] = useState<string>('');
+
+  const postRequestLinkSubmit = async (mapHash: string) => {
+    await fetch(`https://zep.us/play/${mapHash}`)
+      .then((response) => response.text())
+      .then((html) => {
+        // Convert the HTML string into a document object
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const title = doc.getElementsByTagName('title')[0].innerHTML;
+        if (title) {
+          setTitle(title);
+        }
+        return title || '';
+      })
+      .catch((error) => {
+        // There was an error
+        console.warn('Something went wrong.', error);
+      })
+      .then(async (res) => {
+        await fetch(`http://54.164.45.6:8080/api/v1/collect/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            mapUrl: `https://zep.us/play/${mapHash}`,
+            mapName: res,
+          }),
+        })
+          .then(() => console.log('successfully login'))
+          .catch((error) => {
+            // There was an error
+            console.warn('Something went wrong.', error);
+          });
+      });
+  };
 
   const handleChange = (id: string, value: string) => {
     switch (id) {
@@ -24,7 +61,9 @@ const EnterPage = () => {
       case 'submitUrl':
         setHash(url.split('play/')[1]);
         localStorage.setItem('hash', url.split('play/')[1]);
-        navigate('/home');
+        postRequestLinkSubmit(url.split('play/')[1]).then(() =>
+          navigate('/home'),
+        );
         break;
       default:
         break;
