@@ -53,6 +53,7 @@ export const EnterCardContainer = styled.div<{ isVerified?: boolean }>`
       font-size: 40px;
       font-weight: 800;
       margin-bottom: 28px;
+      margin-top: 60px;
     }
 
     p.notionLink {
@@ -60,7 +61,11 @@ export const EnterCardContainer = styled.div<{ isVerified?: boolean }>`
       font-size: 16px;
       font-weight: 600;
       text-align: right;
-      margin-top: 100px;
+      margin-top: 70px;
+    }
+
+    p.bottomMargin {
+      margin-bottom: 60px;
     }
 
     p.errorMessage {
@@ -68,7 +73,8 @@ export const EnterCardContainer = styled.div<{ isVerified?: boolean }>`
       text-align: left;
       font-size: 16px;
       font-weight: 400;
-      margin-top: 58px;
+      margin-top: -20px;
+      position: fixed;
     }
 
     div.inputItem {

@@ -5,13 +5,11 @@ import * as $ from './style';
 import Snippet from '../Snippet';
 import Sidebar from '../Sidebar';
 import { Route, Routes } from 'react-router-dom';
-import EnterPage from '../EnterPage';
 import ParticipationHour from '../ParticipationHour';
 import AreaInformationPage from '../AreaInformationPage';
 import ParticipantInsightPage from '../ParticipantInsightPage';
 
 const HomePage = () => {
-  const [hash, setHash] = useRecoilState(creatorHashState);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   useEffect(() => {
     setTimeout(() => {

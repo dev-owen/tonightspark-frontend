@@ -46,7 +46,7 @@ const EnterPage = () => {
           <p className="alignLeft">
             We will organize the data of events and events on the map
           </p>
-          <p className="alignLeft">
+          <p className="alignLeft bottomMargin">
             made into indicators to make it easier to see.
           </p>
           {isVerified === false && (
