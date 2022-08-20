@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import * as $ from './style';
-import { isCorrectUrlFormat } from '../../utils/validation';
+import { isContainKorean, isCorrectUrlFormat } from '../../utils/validation';
 
 const EnterPage = () => {
   const [isVerified, setIsVerified] = useState<boolean | undefined>();
@@ -9,10 +9,12 @@ const EnterPage = () => {
   const handleChange = (id: string, value: string) => {
     switch (id) {
       case 'url':
-        if (value === '') setIsVerified(undefined);
-        else if (isCorrectUrlFormat(value)) setIsVerified(true);
-        else setIsVerified(false);
-        setUrl(value);
+        if (!isContainKorean(value)) {
+          if (value === '') setIsVerified(undefined);
+          else if (isCorrectUrlFormat(value)) setIsVerified(true);
+          else setIsVerified(false);
+          setUrl(value);
+        }
         break;
       default:
         break;
