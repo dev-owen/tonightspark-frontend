@@ -50,6 +50,9 @@ export const Bottom = styled.div`
   p {
     margin: 0;
   }
+  a {
+    margin-top: 80px;
+  }
   a > p {
     margin-top: 8px;
   }

@@ -44,10 +44,10 @@ const Sidebar = () => {
           </$.MenuLink>
         </$.MenuLinkList>
       </$.Top>
-      <$.Middle>
-        <p onClick={() => removeHash()}>Connect new ZEP event {`>`}</p>
-      </$.Middle>
       <$.Bottom>
+        <$.Middle>
+          <p onClick={() => removeHash()}>Connect new ZEP event {`>`}</p>
+        </$.Middle>
         <a href={zepLink}>
           <p>ZEP 접속링크 :</p>
           <p>{zepLink}</p>
