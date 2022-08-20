@@ -6,6 +6,7 @@ import {
   GRAY_700,
   GRAY_800,
   GREEN_100,
+  ORANGE_100,
   RED_100,
   WHITE,
 } from '../../utils/color';
@@ -20,23 +21,32 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-content: center;
+  background-color: ${GRAY_50};
 `;
 
 export const EnterCardContainer = styled.div<{ isVerified?: boolean }>`
-  min-width: 720px;
+  min-width: 790px;
   height: 600px;
-  background-color: ${GRAY_50};
+  background-color: ${WHITE};
   margin: auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-content: center;
+  border-radius: 24px;
+  padding: 80px;
+  box-sizing: border-box;
 
   .enterCardItem {
     height: fit-content;
-    margin: auto;
+    margin: auto 0;
 
     p {
       margin: 8px 0;
+    }
+
+    p.alignLeft {
+      text-align: left;
     }
 
     p.titleText {
@@ -45,9 +55,25 @@ export const EnterCardContainer = styled.div<{ isVerified?: boolean }>`
       margin-bottom: 28px;
     }
 
+    p.notionLink {
+      color: ${ORANGE_100};
+      font-size: 16px;
+      font-weight: 600;
+      text-align: right;
+      margin-top: 100px;
+    }
+
+    p.errorMessage {
+      color: ${RED_100};
+      text-align: left;
+      font-size: 16px;
+      font-weight: 400;
+      margin-top: 58px;
+    }
+
     div.inputItem {
       input.enterInput {
-        margin-top: 92px;
+        margin-top: 16px;
         width: 550px;
         height: 56px;
         border-radius: 28px;
@@ -60,8 +86,9 @@ export const EnterCardContainer = styled.div<{ isVerified?: boolean }>`
               : RED_100};
         font-size: 20px;
         font-weight: 600;
-        padding: 18px 67px;
+        padding: 18px 24px;
         box-sizing: border-box;
+        margin-right: 24px;
         background-color: ${GRAY_50};
         color: ${(props) =>
           props.isVerified === undefined

@@ -14,7 +14,7 @@ function App() {
   useEffect(() => {
     const localHash = localStorage.getItem('hash');
     if (localHash) setHash(localHash);
-    if (!isLoggedIn && !hash && !localHash) {
+    if (!hash && !localHash) {
       setIsLoggedIn(false);
       navigate('/enter');
     } else {

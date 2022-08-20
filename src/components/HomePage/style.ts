@@ -3,7 +3,7 @@ import { GRAY_800 } from '../../utils/color';
 
 export const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
+  //height: 100%;
   text-align: center;
   font-size: 24px;
   font-weight: 400;
@@ -18,4 +18,5 @@ export const HomeContainer = styled.div`
   display: flex;
   flex-direction: row;
   margin-left: 300px;
+  margin-bottom: 240px;
 `;

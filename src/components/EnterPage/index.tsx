@@ -4,7 +4,8 @@ import { isContainKorean, isCorrectUrlFormat } from '../../utils/validation';
 import { useNavigate } from 'react-router-dom';
 import { creatorHashState } from '../../state/creatorHashState';
 import { useRecoilState } from 'recoil';
-import { postRequestLinkSubmit } from "../../utils/postRequestLinkSubmit";
+import { postRequestLinkSubmit } from '../../utils/postRequestLinkSubmit';
+import Logo from '../Logo';
 
 const EnterPage = () => {
   const navigate = useNavigate();
@@ -37,10 +38,20 @@ const EnterPage = () => {
   return (
     <$.Wrapper>
       <$.EnterCardContainer isVerified={isVerified}>
+        <Logo />
         <div className="enterCardItem">
-          <p className="titleText">Please enter the ZEP access link.</p>
-          <p>We will organize the data of events and events on the map</p>
-          <p>made into indicators to make it easier to see.</p>
+          <p className="titleText alignLeft">
+            Please enter the ZEP access link.
+          </p>
+          <p className="alignLeft">
+            We will organize the data of events and events on the map
+          </p>
+          <p className="alignLeft">
+            made into indicators to make it easier to see.
+          </p>
+          {isVerified === false && (
+            <p className="errorMessage">Invalid connection link.</p>
+          )}
           <div className="inputItem">
             <input
               className="enterInput"
@@ -58,6 +69,11 @@ const EnterPage = () => {
               Enter
             </button>
           </div>
+          <p className="notionLink">
+            <a href="https://www.notion.so/leeyongho/ZEP-SIGHT-APP-fc998d89a36444f990667f9cac499971">
+              Please check the ZEP Application&apos;s installed
+            </a>
+          </p>
         </div>
       </$.EnterCardContainer>
     </$.Wrapper>
