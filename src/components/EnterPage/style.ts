@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
   align-content: center;
 `;
 
-export const HomeCardContainer = styled.div`
+export const EnterCardContainer = styled.div`
   width: 720px;
   height: 600px;
   background-color: rgba(255, 255, 255, 1);
@@ -21,7 +21,7 @@ export const HomeCardContainer = styled.div`
   justify-content: center;
   align-content: center;
 
-  .homeCardItem {
+  .enterCardItem {
     border: 1px solid rgba(0, 0, 0, 0.7);
     height: fit-content;
     margin: auto;
@@ -37,7 +37,7 @@ export const HomeCardContainer = styled.div`
     }
 
     div.inputItem {
-      input.homeInput {
+      input.enterInput {
         margin-top: 92px;
         width: 550px;
         height: 56px;
