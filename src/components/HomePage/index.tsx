@@ -4,6 +4,8 @@ import { creatorHashState } from '../../state/creatorHashState';
 import * as $ from './style';
 import Snippet from '../Snippet';
 import Sidebar from '../Sidebar';
+import { Route, Routes } from 'react-router-dom';
+import EnterPage from '../EnterPage';
 
 const HomePage = () => {
   const [hash, setHash] = useRecoilState(creatorHashState);
@@ -28,6 +30,12 @@ const HomePage = () => {
       ) : (
         <$.HomeContainer>
           <Sidebar />
+          <Routes>
+            <Route index element={<div>participant insight</div>} />
+            <Route path="hour" element={<div>participation by hour</div>} />
+            <Route path="area" element={<div>area information</div>} />
+            <Route path="object" element={<div>object insight</div>} />
+          </Routes>
         </$.HomeContainer>
       )}
     </$.Wrapper>

@@ -18,14 +18,14 @@ function App() {
       navigate('/enter');
     } else {
       setIsLoggedIn(true);
-      navigate('/');
+      navigate('/home');
     }
   }, [hash]);
 
   return (
     <Routes>
-      <Route path="/enter" element={<EnterPage />} />
-      <Route path="/" element={<HomePage />} />
+      <Route path="enter" element={<EnterPage />} />
+      <Route path="home/*" element={<HomePage />} />
     </Routes>
   );
 }

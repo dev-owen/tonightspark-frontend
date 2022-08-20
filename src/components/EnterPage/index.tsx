@@ -24,7 +24,7 @@ const EnterPage = () => {
       case 'submitUrl':
         setHash(url.split('play/')[1]);
         localStorage.setItem('hash', url.split('play/')[1]);
-        navigate('/');
+        navigate('/home');
         break;
       default:
         break;
