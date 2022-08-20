@@ -1,8 +1,8 @@
 import { format } from 'date-fns/fp'
 import styled from 'styled-components'
 import useNumberOfVisitorsQuey from '../../hooks/useNumberOfVisitorsQuey'
-import { BLUE_10, BLUE_100, GRAY_700, GREEN_10, GREEN_100, ORANGE_10, ORANGE_100 } from '../../utils/color'
-import { formatNumber } from '../../utils/number'
+import useRemainingTimeQuery from '../../hooks/useRemainingTimeQuery'
+import { GRAY_700, GREEN_10, GREEN_100, ORANGE_10, ORANGE_100 } from '../../utils/color'
 import Badge from '../Badge'
 import BoxContainer from '../BoxContainer'
 import { HeaderContainer, HeaderDescription, HeaderTitle } from '../Header'
@@ -64,10 +64,11 @@ const dummys = [
 
 const AreaInformationPage = () => {
     const numberOfVisitorsQuery = useNumberOfVisitorsQuey()
+    const remainingTimeQuery = useRemainingTimeQuery()
 
     return (
         <Layout>
-            {[numberOfVisitorsQuery.areaInformation, ...dummys].map((dummy, index) => (
+            {[numberOfVisitorsQuery.areaInformation, remainingTimeQuery.areaInformation, ...dummys].map((dummy, index) => (
                 <Group key={index}>
                     <HeaderContainer marginTop="112px">
                         <Badge color={dummy.mainColor} backgroundColor={dummy.subColor}>{dummy.valueFormatter(dummy.totalValue)}</Badge>
