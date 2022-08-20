@@ -4,6 +4,7 @@ import { BLUE_10, BLUE_100, GRAY_500, GRAY_700, GREEN_10, GREEN_100, ORANGE_10, 
 import { formatNumber } from '../../utils/number'
 import Badge from '../Badge'
 import { HeaderContainer, HeaderDescription, HeaderTitle } from '../Header'
+import MiniLabel from '../MiniLabel'
 
 const dummys = [
     {
@@ -67,15 +68,15 @@ const AreaInformationPage = () => {
         <Layout>
             {dummys.map((dummy, index) => (
                 <Group key={index}> 
-                    <HeaderContainer>
+                    <HeaderContainer marginTop="112px">
                         <Badge color={dummy.mainColor} backgroundColor={dummy.subColor}>{dummy.valueFormatter(dummy.totalValue)}</Badge>
-                        <HeaderTitle>{dummy.title}</HeaderTitle>
+                        <HeaderTitle marginTop="28px">{dummy.title}</HeaderTitle>
                         <HeaderDescription>{dummy.description}</HeaderDescription>
                     </HeaderContainer>
                     <Container backgroundColor={dummy.subColor}>
                         {dummy.items.map((item, itemIndex) => (
                             <Item key={itemIndex}>
-                                <ItemLabel backgroundColor={dummy.mainColor}>{item.label}</ItemLabel>
+                                <MiniLabel margin="0 0 0 16px" backgroundColor={dummy.mainColor}>{item.label}</MiniLabel>
                                 <ItemValue>{dummy.valueFormatter(item.value)}</ItemValue>
                             </Item>
 
@@ -117,21 +118,6 @@ const Item = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-`
-const ItemLabel = styled.div<{ backgroundColor: CSSProperties['backgroundColor'] }>`
-    font-size: 16px;
-    font-weight: 800;
-    color: white;
-    background-color: ${({ backgroundColor }) => backgroundColor};
-    box-sizing: border-box;
-    width: auto;
-    height: 32px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0px 16px 0px 16px;
-    border-radius: 20px;
-    margin-left: 16px;
 `
 const ItemValue = styled.div`
     margin-right: 24px;
