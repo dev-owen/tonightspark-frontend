@@ -4,6 +4,7 @@ import { isContainKorean, isCorrectUrlFormat } from '../../utils/validation';
 import { useNavigate } from 'react-router-dom';
 import { creatorHashState } from '../../state/creatorHashState';
 import { useRecoilState } from 'recoil';
+import { postRequestLinkSubmit } from "../../utils/postRequestLinkSubmit";
 
 const EnterPage = () => {
   const navigate = useNavigate();
@@ -24,7 +25,9 @@ const EnterPage = () => {
       case 'submitUrl':
         setHash(url.split('play/')[1]);
         localStorage.setItem('hash', url.split('play/')[1]);
-        navigate('/home');
+        postRequestLinkSubmit(url.split('play/')[1]).then(() =>
+          navigate('/home'),
+        );
         break;
       default:
         break;
