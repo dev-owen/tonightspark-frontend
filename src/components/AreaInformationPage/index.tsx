@@ -1,8 +1,9 @@
 import { format } from 'date-fns/fp'
-import styled, { CSSProperties } from 'styled-components'
-import { BLUE_10, BLUE_100, GRAY_500, GRAY_700, GREEN_10, GREEN_100, ORANGE_10, ORANGE_100 } from '../../utils/color'
+import styled from 'styled-components'
+import { BLUE_10, BLUE_100, GRAY_700, GREEN_10, GREEN_100, ORANGE_10, ORANGE_100 } from '../../utils/color'
 import { formatNumber } from '../../utils/number'
 import Badge from '../Badge'
+import BoxContainer from '../BoxContainer'
 import { HeaderContainer, HeaderDescription, HeaderTitle } from '../Header'
 import MiniLabel from '../MiniLabel'
 
@@ -73,7 +74,7 @@ const AreaInformationPage = () => {
                         <HeaderTitle marginTop="28px">{dummy.title}</HeaderTitle>
                         <HeaderDescription>{dummy.description}</HeaderDescription>
                     </HeaderContainer>
-                    <Container backgroundColor={dummy.subColor}>
+                    <BoxContainer backgroundColor={dummy.subColor} margin="40px 0 0 0">
                         {dummy.items.map((item, itemIndex) => (
                             <Item key={itemIndex}>
                                 <MiniLabel margin="0 0 0 16px" backgroundColor={dummy.mainColor}>{item.label}</MiniLabel>
@@ -81,7 +82,7 @@ const AreaInformationPage = () => {
                             </Item>
 
                         ))}
-                    </Container>
+                    </BoxContainer>
                 </Group>
             ))}
         </Layout>
@@ -99,17 +100,6 @@ const Layout = styled.div`
 `
 const Group = styled.div``
 
-const Container = styled.div<{ backgroundColor: CSSProperties['backgroundColor'] }>`
-    background-color: ${({ backgroundColor }) => backgroundColor};
-    margin-top: 40px;
-    width: 360px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    gap: 28px;
-    padding: 24px 20px;
-    border-radius: 24px;
-`
 const Item = styled.div`
     background: white;
     border-radius: 26px;
