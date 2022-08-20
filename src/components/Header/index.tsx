@@ -16,6 +16,7 @@ export const HeaderTitle = styled.div<{ marginTop?: CSSProperties['marginTop'] }
     display: flex;
     align-items: center;
     div {
+        margin: auto;
         margin-right: 16px;
     }
     span {
