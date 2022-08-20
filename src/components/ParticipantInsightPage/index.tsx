@@ -38,7 +38,7 @@ const ParticipantInsightPage = () => {
 
   return (
     <Layout>
-      <HeaderContainer marginLeft="123px">
+      <HeaderContainer marginLeft="80px">
         <HeaderTitle>
           <Badge color={INDIGO_100} backgroundColor={INDIGO_10}>
             {formatNumber(24000)}
@@ -48,7 +48,7 @@ const ParticipantInsightPage = () => {
         <HeaderDescription>Most highest value of CCU</HeaderDescription>
       </HeaderContainer>
       <Divider height="1px" width="calc(100%-160px)" margin="60px 80px" />
-      <HeaderContainer marginTop="0" marginLeft="123px">
+      <HeaderContainer marginTop="0" marginLeft="80px">
         <HeaderTitle>Statistics by User Type</HeaderTitle>
         <HeaderDescription>
           Check behavior data by click participant type button
@@ -73,7 +73,7 @@ const ParticipantInsightPage = () => {
         {Object.keys(ROLES)
           .filter((role) => filters.some((filter) => filter === role))
           .map((role) => (
-            <BoxContainer backgroundColor={'white'} width="550px" key={role}>
+            <BoxContainer backgroundColor={'white'} width="500px" key={role}>
               <>
                 <ItemTitle>
                   <Bar /> {role}
@@ -114,7 +114,7 @@ const Layout = styled.div`
   width: 100%;
 `;
 const LabelList = styled.div`
-  margin: 40px 0 60px 123px;
+  margin: 40px 0 60px 100px;
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
