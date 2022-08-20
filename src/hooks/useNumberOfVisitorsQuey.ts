@@ -26,7 +26,7 @@ const useNumberOfVisitorsQuey = () => {
     () => fetchUseNumberOfVisitors(mapHash),
   );
 
-  const areaInformation: AreaInformation = useMemo(
+  const visitorInfo: AreaInformation = useMemo(
     () => ({
       mainColor: BLUE_100,
       subColor: BLUE_10,
@@ -45,7 +45,7 @@ const useNumberOfVisitorsQuey = () => {
     [data],
   );
 
-  return { isLoading, areaInformation };
+  return { isLoading, visitorInfo };
 };
 
 export default useNumberOfVisitorsQuey;
