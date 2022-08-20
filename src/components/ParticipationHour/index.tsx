@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import * as $ from './style';
-import { data } from '../../data/hourOverall';
-import { OverallChartContainer, RateBoxItem } from './style';
+import { data } from '../../data/hourValue';
+import HourAreaChart from '../HourAreaChart';
+import { BLUE_100, ORANGE_100 } from '../../utils/color';
 
 const ParticipationHour = () => {
   const [minMax, setMinMax] = useState<{ min: number; max: number }>({
@@ -58,6 +59,8 @@ const ParticipationHour = () => {
           ))}
         </$.OverallChartContainer>
       </$.OverallAreaHourChartContainer>
+      <HourAreaChart label="Area 1" data={data} color={BLUE_100} />
+      <HourAreaChart label="Area 2" data={data} color={ORANGE_100} />
     </$.Wrapper>
   );
 };

@@ -1,4 +1,6 @@
-export const data = [
+import { TimeDataInterface } from '../components/HourAreaChart';
+
+export const data: TimeDataInterface[] = [
   {
     time: '12:00',
     value: 23,
