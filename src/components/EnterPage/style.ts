@@ -29,7 +29,6 @@ export const EnterCardContainer = styled.div<{ isVerified?: boolean }>`
   align-content: center;
 
   .enterCardItem {
-    border: 1px solid ${GRAY_700};
     height: fit-content;
     margin: auto;
 
@@ -67,8 +66,10 @@ export const EnterCardContainer = styled.div<{ isVerified?: boolean }>`
         background-color: ${GRAY_50};
         border-radius: 50%;
         display: inline-block;
-        margin: 0;
         border: 1px solid ${GRAY_100};
+        position: relative;
+        top: 20px;
+        margin-left: 12px;
       }
     }
   }
