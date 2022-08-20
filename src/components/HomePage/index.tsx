@@ -1,24 +1,27 @@
-import React from 'react';
-import { useSetRecoilState } from 'recoil';
+import React, { useEffect, useState } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { creatorHashState } from '../../state/creatorHashState';
+import * as $ from './style';
+import Snippet from '../Snippet';
 
 const HomePage = () => {
-  const setCreatorHash = useSetRecoilState(creatorHashState);
+  const [hash, setHash] = useRecoilState(creatorHashState);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
 
   const handleChange = (id: string, value: string) => {
     switch (id) {
-      case 'creatorHash':
-        setCreatorHash(value);
-        break;
       default:
         break;
     }
   };
 
   return (
-    <div>
-      <p>Hello Landing Page</p>
-    </div>
+    <$.Wrapper>{isLoading ? <Snippet /> : <p>Hello Landing Page</p>}</$.Wrapper>
   );
 };
 

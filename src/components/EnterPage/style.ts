@@ -23,7 +23,7 @@ export const Wrapper = styled.div`
 `;
 
 export const EnterCardContainer = styled.div<{ isVerified?: boolean }>`
-  width: 720px;
+  min-width: 720px;
   height: 600px;
   background-color: ${GRAY_50};
   margin: auto;

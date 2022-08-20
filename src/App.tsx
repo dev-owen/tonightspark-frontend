@@ -8,12 +8,17 @@ import { useRecoilState } from 'recoil';
 function App() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [hash, setHash] = useRecoilState(creatorHashState);
+  const [hash, _] = useRecoilState(creatorHashState);
 
   useEffect(() => {
     const localHash = localStorage.getItem('hash');
-    if (!isLoggedIn && !hash && !localHash) navigate('/enter');
-    else navigate('/');
+    if (!isLoggedIn && !hash && !localHash) {
+      setIsLoggedIn(false);
+      navigate('/enter');
+    } else {
+      setIsLoggedIn(true);
+      navigate('/');
+    }
   }, [hash]);
 
   return (
