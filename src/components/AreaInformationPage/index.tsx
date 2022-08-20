@@ -3,12 +3,7 @@ import useNumberOfVisitorsQuey from '../../hooks/useNumberOfVisitorsQuey';
 import useRemainingTimeQuery from '../../hooks/useRemainingTimeQuery';
 import {
   GRAY_700,
-  GREEN_10,
-  GREEN_100,
-  ORANGE_10,
-  ORANGE_100,
 } from '../../utils/color';
-import formatSeconds from '../../utils/formatSeconds';
 import Badge from '../Badge';
 import BoxContainer from '../BoxContainer';
 import { HeaderContainer, HeaderDescription, HeaderTitle } from '../Header';
