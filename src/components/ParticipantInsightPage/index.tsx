@@ -1,5 +1,6 @@
 import styled from "styled-components"
-import useParticipantInsightQuery, { ROLES, ROLE_COLORS } from "../../hooks/useParticipantInsightQuery"
+import useParticipantInsightQuery, { ROLE_COLORS } from "../../hooks/useParticipantInsightQuery"
+import { ROLES } from "../../state/filterState"
 import { BLUE_100, GRAY_100, GRAY_600, GRAY_700, GREEN_100, INDIGO_10, INDIGO_100, ORANGE_100, PURPLE_100, YELLOW_100 } from "../../utils/color"
 import formatSeconds from "../../utils/formatSeconds"
 import { formatNumber } from "../../utils/number"
@@ -13,7 +14,7 @@ import MiniLabel from "../MiniLabel"
 const LOOP_COLORS = [INDIGO_100, PURPLE_100, ORANGE_100, YELLOW_100, BLUE_100, GREEN_100]
 
 const ParticipantInsightPage = () => {
-    const { data } = useParticipantInsightQuery()
+    const { data, filters, toggleFilter } = useParticipantInsightQuery()
 
     return (
         <Layout>
@@ -33,11 +34,11 @@ const ParticipantInsightPage = () => {
             </HeaderContainer>
             <LabelList>
                 {Object.keys(ROLES).map((role) => (
-                    <BigLabel backgroundColor={ROLE_COLORS[role].on} key={role}>{role}</BigLabel>
+                    <BigLabel backgroundColor={filters.some(filter => filter === role) ? ROLE_COLORS[role].on : ROLE_COLORS[role].off} key={role} onClick={() => toggleFilter(role)}>{role}</BigLabel>
                 ))}
             </LabelList>
             <Group>
-                {Object.keys(ROLES).map((role) => (
+                {Object.keys(ROLES).filter((role) => filters.some(filter => filter === role)).map((role) => (
                     <BoxContainer backgroundColor={'white'} width="550px" key={role}>
                         <>
                             <ItemTitle>
