@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 import useNumberOfVisitorsQuey from '../../hooks/useNumberOfVisitorsQuey';
 import useRemainingTimeQuery from '../../hooks/useRemainingTimeQuery';
-import {
-  GRAY_700,
-} from '../../utils/color';
+import { GRAY_700 } from '../../utils/color';
 import Badge from '../Badge';
 import BoxContainer from '../BoxContainer';
 import { HeaderContainer, HeaderDescription, HeaderTitle } from '../Header';
@@ -38,13 +36,14 @@ const AreaInformationPage = () => {
             <HeaderTitle>{info.title}</HeaderTitle>
             <HeaderDescription>{info.description}</HeaderDescription>
           </HeaderContainer>
-          <BoxContainer backgroundColor={info.subColor} margin="40px 0 0 0">
+          <BoxContainer
+            backgroundColor={info.subColor}
+            margin="40px 0 0 0"
+            padding="24px 20px"
+          >
             {info.items.map((item, itemIndex) => (
               <Item key={itemIndex}>
-                <MiniLabel
-                  margin="0 0 0 16px"
-                  backgroundColor={info.mainColor}
-                >
+                <MiniLabel margin="0 0 0 16px" backgroundColor={info.mainColor}>
                   {item.label}
                 </MiniLabel>
                 <ItemValue>{info.valueFormatter(item.value)}</ItemValue>
@@ -64,13 +63,13 @@ const Layout = styled.div`
   flex-wrap: wrap;
   gap: 52px;
   flex-direction: row;
-  margin: 0 auto 240px auto;
+  margin: 0 auto;
 `;
 const Group = styled.div``;
 
 const Item = styled.div`
   background: white;
-  border-radius: 26px;
+  border-radius: 24px;
   width: auto;
   height: 64px;
   display: flex;
