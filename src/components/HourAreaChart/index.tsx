@@ -11,6 +11,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import { TimeDataInterface } from '../ParticipationHour';
 
 ChartJS.register(
   CategoryScale,
@@ -22,11 +23,6 @@ ChartJS.register(
   Legend,
 );
 
-export interface TimeDataInterface {
-  time: string;
-  value: number;
-}
-
 interface HourAreaChartPropsInterface {
   data: TimeDataInterface[];
   label: string;
@@ -35,17 +31,16 @@ interface HourAreaChartPropsInterface {
 
 const HourAreaChart = ({ data, label, color }: HourAreaChartPropsInterface) => {
   const chartData = {
-    labels: data.map((data) => data.time),
+    labels: data.map((data) => `${String(data.time)}:00`),
     datasets: [
       {
         label: `${label} line chart`,
-        data: data.map((data) => data.value),
+        data: data.map((data) => data.count),
         fill: false,
         borderColor: color,
         pointStyle: 'rectDot',
       },
     ],
-    // TODO - grid line 삭제
   };
 
   return (

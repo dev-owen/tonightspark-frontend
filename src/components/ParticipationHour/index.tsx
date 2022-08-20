@@ -1,26 +1,60 @@
 import React, { useEffect, useState } from 'react';
 import * as $ from './style';
-import { data } from '../../data/hourValue';
 import HourAreaChart from '../HourAreaChart';
 import { BLUE_100, INDIGO_10, INDIGO_100, ORANGE_100 } from '../../utils/color';
 import Badge from '../Badge';
 import { formatNumber } from '../../utils/number';
 import { HeaderContainer, HeaderDescription, HeaderTitle } from '../Header';
+import { useRecoilState } from 'recoil';
+import { creatorHashState } from '../../state/creatorHashState';
+
+export interface TimeDataInterface {
+  time: number;
+  count: number;
+}
+
+interface AreaDataInterface {
+  areaName: string;
+  timeCountList: TimeDataInterface[];
+}
 
 const ParticipationHour = () => {
+  const [hash, setHash] = useRecoilState(creatorHashState);
+  const [overallData, setOverallData] = useState<TimeDataInterface[]>([]);
+  const [areaData, setAreaData] = useState<AreaDataInterface[]>([]);
+
   const [minMax, setMinMax] = useState<{ min: number; max: number }>({
     min: 0,
-    max: 100,
+    max: 0,
   });
 
+  const fetchPage2 = async (path: string) => {
+    return await fetch(`http://54.164.45.6:8080/api/v1/page2/${path}`).then(
+      (res) => res.json(),
+    );
+  };
+
   useEffect(() => {
-    data.forEach((data) => {
+    Promise.all([
+      fetchPage2(`total-visit/${hash}`).then((res) => {
+        if (res) setOverallData([...res]);
+      }),
+      fetchPage2(`chart-area/${hash}`).then((res) => {
+        if (res) setAreaData([...res]);
+      }),
+    ]);
+  }, []);
+
+  useEffect(() => {
+    overallData.forEach((data) => {
       setMinMax((prevState) => ({
-        min: Math.min(prevState.min, data.value),
-        max: Math.max(prevState.max, data.value),
+        min: Math.min(prevState.min, data.count),
+        max: Math.max(prevState.max, data.count),
       }));
     });
-  }, [data]);
+  }, [overallData]);
+
+  console.log(areaData);
 
   const convertTimeName = (time: string) => {
     switch (time) {
@@ -36,33 +70,48 @@ const ParticipationHour = () => {
 
   return (
     <$.Wrapper>
-        <HeaderContainer marginLeft="80px">
-          <HeaderTitle><Badge color={INDIGO_100} backgroundColor={INDIGO_10}>
+      <HeaderContainer marginLeft="80px">
+        <HeaderTitle>
+          <Badge color={INDIGO_100} backgroundColor={INDIGO_10}>
             {formatNumber(480864)}
-          </Badge>Total Visits</HeaderTitle>
-          <HeaderDescription>Participants count during the event</HeaderDescription>
-        </HeaderContainer>
+          </Badge>
+          Total Visits
+        </HeaderTitle>
+        <HeaderDescription>
+          Participants count during the event
+        </HeaderDescription>
+      </HeaderContainer>
       <$.OverallAreaHourChartContainer>
         <div className="overallLabel">Overall</div>
         <$.OverallChartContainer>
-          {data.map((data, index) => (
+          {overallData.map((data, index) => (
             <div key={index}>
               <div
                 className={`overallTimeLabel ${index % 2 === 1 ? 'hide' : ''}`}
               >
-                {index % 2 === 0 ? convertTimeName(data.time) : '-'}
+                {index % 2 === 0
+                  ? convertTimeName(String(data.time) + ':00')
+                  : '-'}
               </div>
               <$.RateBoxItem
                 percentage={
-                  ((data.value - minMax.min) * 100) / (minMax.max - minMax.min)
+                  ((data.count - minMax.min) * 100) / (minMax.max - minMax.min)
                 }
               />
             </div>
           ))}
         </$.OverallChartContainer>
       </$.OverallAreaHourChartContainer>
-      <HourAreaChart label="Area 1" data={data} color={BLUE_100} />
-      <HourAreaChart label="Area 2" data={data} color={ORANGE_100} />
+      {areaData.map((area, index) => {
+        return (
+          <HourAreaChart
+            key={`area-${index}`}
+            label={area.areaName}
+            data={area.timeCountList}
+            color={index % 2 == 0 ? BLUE_100 : ORANGE_100}
+          />
+        );
+      })}
     </$.Wrapper>
   );
 };
