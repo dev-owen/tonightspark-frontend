@@ -41,7 +41,11 @@ const AreaInformationPage = () => {
             margin="40px 0 0 0"
             padding="24px 20px"
           >
-            {info.items.map((item, itemIndex) => (
+            {info.items.sort((a, b) => {
+              if (a.label === 'NONE') return 1
+              if (b.label === 'NONE') return -1
+              return b.value - a.value
+            }).map((item, itemIndex) => (
               <Item key={itemIndex}>
                 <MiniLabel margin="0 0 0 16px" backgroundColor={info.mainColor}>
                   {item.label}
