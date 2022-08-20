@@ -1,20 +1,30 @@
 import React, { ChangeEvent, useState } from 'react';
 import * as $ from './style';
 import { isContainKorean, isCorrectUrlFormat } from '../../utils/validation';
+import { useNavigate } from 'react-router-dom';
+import { creatorHashState } from '../../state/creatorHashState';
+import { useRecoilState } from 'recoil';
 
 const EnterPage = () => {
+  const navigate = useNavigate();
   const [isVerified, setIsVerified] = useState<boolean | undefined>();
   const [url, setUrl] = useState<string>('');
+  const [hash, setHash] = useRecoilState(creatorHashState);
 
   const handleChange = (id: string, value: string) => {
     switch (id) {
-      case 'url':
+      case 'changeUrl':
         if (!isContainKorean(value)) {
           if (value === '') setIsVerified(undefined);
           else if (isCorrectUrlFormat(value)) setIsVerified(true);
           else setIsVerified(false);
           setUrl(value);
         }
+        break;
+      case 'submitUrl':
+        setHash(url.split('play/')[1]);
+        localStorage.setItem('hash', url.split('play/')[1]);
+        navigate('/');
         break;
       default:
         break;
@@ -35,10 +45,15 @@ const EnterPage = () => {
               placeholder="Please enter the URL."
               value={url}
               onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                handleChange('url', event.target.value)
+                handleChange('changeUrl', event.target.value)
               }
             />
-            <button>Enter</button>
+            <button
+              disabled={!isVerified}
+              onClick={() => handleChange('submitUrl', '')}
+            >
+              Enter
+            </button>
           </div>
         </div>
       </$.EnterCardContainer>

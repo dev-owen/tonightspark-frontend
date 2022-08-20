@@ -96,8 +96,13 @@ export const EnterCardContainer = styled.div<{ isVerified?: boolean }>`
             : RED_100};
         border-width: ${(props) =>
           props.isVerified === undefined ? '1px' : '0'};
+
         :hover {
           cursor: pointer;
+        }
+
+        :disabled {
+          cursor: not-allowed;
         }
       }
     }

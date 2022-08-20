@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import HomePage from './components/HomePage';
 import EnterPage from './components/EnterPage';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import { creatorHashState } from './state/creatorHashState';
+import { useRecoilState } from 'recoil';
+
 function App() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [hash, setHash] = useRecoilState(creatorHashState);
 
   useEffect(() => {
-    if (!isLoggedIn) navigate('/enter');
+    const localHash = localStorage.getItem('hash');
+    if (!isLoggedIn && !hash && !localHash) navigate('/enter');
     else navigate('/');
-  }, []);
+  }, [hash]);
 
   return (
     <Routes>
