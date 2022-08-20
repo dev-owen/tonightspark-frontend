@@ -12,3 +12,9 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-content: center;
 `;
+
+export const HomeContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+`;
