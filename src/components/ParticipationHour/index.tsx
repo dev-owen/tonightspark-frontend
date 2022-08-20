@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import * as $ from './style';
 import { data } from '../../data/hourValue';
 import HourAreaChart from '../HourAreaChart';
-import { BLUE_100, ORANGE_100 } from '../../utils/color';
+import { BLUE_100, INDIGO_10, INDIGO_100, ORANGE_100 } from '../../utils/color';
+import Badge from '../Badge';
+import { formatNumber } from '../../utils/number';
+import { HeaderContainer, HeaderDescription, HeaderTitle } from '../Header';
 
 const ParticipationHour = () => {
   const [minMax, setMinMax] = useState<{ min: number; max: number }>({
@@ -34,11 +37,12 @@ const ParticipationHour = () => {
   return (
     <$.Wrapper>
       <div className="titleContainer">
-        <p>
-          <span className="countNumber boldTitle">480,864</span>
-          <span className="boldTitle">Total Visits</span>
-        </p>
-        <p className="description">Participants count during the event</p>
+        <HeaderContainer>
+          <HeaderTitle><Badge color={INDIGO_100} backgroundColor={INDIGO_10}>
+            {formatNumber(480864)}
+          </Badge>Total Visits</HeaderTitle>
+          <HeaderDescription>Participants count during the event</HeaderDescription>
+        </HeaderContainer>
       </div>
       <$.OverallAreaHourChartContainer>
         <div className="overallLabel">Overall</div>

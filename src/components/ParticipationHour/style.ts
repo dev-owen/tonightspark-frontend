@@ -24,6 +24,13 @@ export const Wrapper = styled.div`
     text-align: left;
     margin: 112px 120px 40px;
 
+    p {
+      display: flex;
+      align-items: center;
+      div {
+        margin: auto 0;
+      }
+    }
     .boldTitle {
       font-size: 28px;
       font-weight: 800;
