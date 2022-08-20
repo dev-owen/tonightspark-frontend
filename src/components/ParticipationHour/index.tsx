@@ -36,14 +36,12 @@ const ParticipationHour = () => {
 
   return (
     <$.Wrapper>
-      <div className="titleContainer">
-        <HeaderContainer>
+        <HeaderContainer marginLeft="80px">
           <HeaderTitle><Badge color={INDIGO_100} backgroundColor={INDIGO_10}>
             {formatNumber(480864)}
           </Badge>Total Visits</HeaderTitle>
           <HeaderDescription>Participants count during the event</HeaderDescription>
         </HeaderContainer>
-      </div>
       <$.OverallAreaHourChartContainer>
         <div className="overallLabel">Overall</div>
         <$.OverallChartContainer>

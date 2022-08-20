@@ -66,8 +66,9 @@ export const OverallAreaHourChartContainer = styled.div`
   justify-content: space-between;
   margin: 0 80px;
 
-  scale: 0.84;
+  scale: 0.86;
   margin-left: 0;
+  margin-top: 44px;
 
   .overallLabel {
     font-size: 16px;

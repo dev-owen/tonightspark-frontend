@@ -18,8 +18,8 @@ export const Wrapper = styled.div<{ color: string }>`
     padding: 8px 16px;
     border-radius: 20px;
   }
-  scale: 0.84;
-  margin-left: 0;
-  margin-top: 0;
   margin-bottom: 0;
+  scale: 0.86;
+  margin-left: 0;
+  margin-top: -32px;
 `;
