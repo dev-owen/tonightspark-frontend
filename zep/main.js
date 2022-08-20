@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
 const CONSTANTS = {
-  EMPTY_SPACE: 'EMPTY_SPACE',
+  NONE: 'NONE',
 };
 
 const AppStorage = {
-  get: (key, defaultValue) => {
+  get: (key, defaultValue = {}) => {
     const storage = JSON.parse(App.storage);
     return storage[key] || defaultValue;
   },
@@ -15,76 +15,96 @@ const AppStorage = {
   },
 };
 
-function startSpace(player, locationName) {
-  App.sayToAll(`init, ${player.id}`);
-
-  // 시작된 위치가 지정된 영역일 때
-  if (locationName !== CONSTANTS.EMPTY_SPACE) {
-    enterSpace(player, locationName);
-  }
-}
-
 function enterSpace(player, locationName) {
-  App.sayToAll(`enter, ${locationName}, ${player.id}, ${player.role}`);
+  App.sayToAll(
+    `enter, ${locationName}, ${player.id}, ${
+      player.role
+    }, ${new Date().getTime()}`,
+  );
+
+  AppStorage.set('players', {
+    ...AppStorage.get('players'),
+    [player.id]: {
+      previousLocations: locationName,
+      startDate: new Date().getTime(),
+      endDate: null,
+    },
+  });
+
+  AppStorage.set('ranking', {
+    ...AppStorage.get('ranking'),
+    [locationName]: (AppStorage.get('ranking')[locationName] || 0) + 1,
+  });
 }
 
 function leaveSpace(player, locationName) {
-  App.sayToAll(`leave, ${locationName}, ${player.id}, ${player.role}`);
+  const playerInfo = AppStorage.get('players')[player.id] || {};
+
+  App.sayToAll(
+    `leave, ${locationName}, ${player.id}, ${player.role}, ${
+      new Date().getTime() - new Date(playerInfo.startDate).getTime()
+    }, ${playerInfo.startDate}, ${new Date().getTime()}`,
+  );
+
+  AppStorage.set('players', {
+    ...AppStorage.get('players'),
+    [player.id]: {
+      previousLocations: locationName,
+      startDate: null,
+      endDate: null,
+    },
+  });
+
+  AppStorage.set('ranking', {
+    ...AppStorage.get('ranking'),
+    [locationName]: (AppStorage.get('ranking')[locationName] || 1) - 1,
+  });
 }
 
 App.onInit.Add(function () {
   App.storage = '{}';
   App.save();
 
-  AppStorage.set('previousLocations', {});
+  AppStorage.set('players', {});
+  AppStorage.set('ranking', {});
 });
 
+App.onLeavePlayer.Add(function (player) {
+  const playerInfo = AppStorage.get('players')[player.id] || {};
+  const previousLocationName = playerInfo.previousLocations;
+  leaveSpace(player, previousLocationName);
+});
+
+// @TODO dt + player.away 값 이용해서 머문 시간 체크
 App.onUpdate.Add(function () {
   for (let player of App.players) {
-    const currentLocationName =
-      player.getLocationName() || CONSTANTS.EMPTY_SPACE;
-    const previousLocationName = AppStorage.get('previousLocations')[player.id];
-    const isCurrentLocationInSpace =
-      currentLocationName !== CONSTANTS.EMPTY_SPACE;
-    const isPreviousLocationInSpace =
-      previousLocationName !== CONSTANTS.EMPTY_SPACE;
+    if (player.role >= 2000) {
+      player.showCenterLabel(
+        JSON.stringify(
+          AppStorage.get('ranking'),
+        ),
+        0x000000,
+        0xffff00,
+        200,
+      ); // 노란색 배경, 검정색 글씨로 표시하기
+    }
+
+    const playerInfo = AppStorage.get('players')[player.id] || {};
+    const previousLocationName = playerInfo.previousLocations;
+    const currentLocationName = player.getLocationName() || CONSTANTS.NONE;
 
     // 20ms 동안 움직임이 없음
     if (currentLocationName === previousLocationName) {
-      AppStorage.set('previousLocations', {
-        ...AppStorage.get('previousLocations'),
-        [player.id]: currentLocationName,
-      });
-      return;
+      //
     }
-
     // 앱 최초 방문
-    if (!previousLocationName) {
-      startSpace(player, currentLocationName);
-      AppStorage.set('previousLocations', {
-        ...AppStorage.get('previousLocations'),
-        [player.id]: currentLocationName,
-      });
-      return;
-    }
-
-    // 빈 영역에서 지정된 영역으로 이동했을 때
-    if (isCurrentLocationInSpace && !isPreviousLocationInSpace) {
+    else if (!previousLocationName) {
       enterSpace(player, currentLocationName);
     }
-    // 인접한 영역 A -> B 로 이동할 때
-    else if (isCurrentLocationInSpace && isPreviousLocationInSpace) {
-      leaveSpace(player, previousLocationName);
-      enterSpace(player, currentLocationName);
-    }
-    // 지정된 영역에서 빈 영역으로 이탈할 때
+    // 영역간 이동
     else {
       leaveSpace(player, previousLocationName);
+      enterSpace(player, currentLocationName);
     }
-
-    AppStorage.set('previousLocations', {
-      ...AppStorage.get('previousLocations'),
-      [player.id]: currentLocationName,
-    });
   }
 });
