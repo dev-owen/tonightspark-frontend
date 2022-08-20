@@ -5,43 +5,35 @@ import * as $ from './style';
 import Snippet from '../Snippet';
 import Sidebar from '../Sidebar';
 import { Route, Routes } from 'react-router-dom';
-import EnterPage from '../EnterPage';
 import ParticipationHour from '../ParticipationHour';
 import AreaInformationPage from '../AreaInformationPage';
 import ParticipantInsightPage from '../ParticipantInsightPage';
+import { useLocation } from 'react-router';
 
 const HomePage = () => {
-  const [hash, setHash] = useRecoilState(creatorHashState);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const location = useLocation();
   useEffect(() => {
+    setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
-  }, []);
-
-  const handleChange = (id: string, value: string) => {
-    switch (id) {
-      default:
-        break;
-    }
-  };
+    }, 1000);
+  }, [location.pathname]);
 
   return (
     <$.Wrapper>
-      {isLoading ? (
-        <Snippet />
-      ) : (
-        <$.HomeContainer>
-          <Sidebar />
+      <$.HomeContainer>
+        <Sidebar />
+        {isLoading ? (
+          <Snippet />
+        ) : (
           <Routes>
             <Route index element={<ParticipantInsightPage />} />
             <Route path="hour" element={<ParticipationHour />} />
             <Route path="area" element={<AreaInformationPage />} />
-            <Route path="hour" element={<div>participation by hour</div>} />
-            <Route path="object" element={<div>object insight</div>} />
           </Routes>
-        </$.HomeContainer>
-      )}
+        )}
+      </$.HomeContainer>
     </$.Wrapper>
   );
 };
