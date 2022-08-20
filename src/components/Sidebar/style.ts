@@ -1,6 +1,13 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { GRAY_200, GRAY_500, INDIGO_10, PURPLE_100, WHITE } from '../../utils/color';
+import {
+  GRAY_200,
+  GRAY_500,
+  GRAY_600,
+  INDIGO_10,
+  PURPLE_100,
+  WHITE,
+} from '../../utils/color';
 
 export const Wrapper = styled.div`
   position: fixed;
@@ -21,6 +28,16 @@ export const Top = styled.div`
   padding-top: 60px;
   display: flex;
   flex-direction: column;
+`;
+
+export const Middle = styled.div`
+  font-size: 16px;
+  font-weight: 600;
+  color: ${GRAY_600};
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export const Bottom = styled.div`
@@ -44,7 +61,7 @@ export const Bottom = styled.div`
 export const LogoWrapper = styled.span`
   margin-left: 20px;
   width: fit-content;
-`
+`;
 export const MenuLinkList = styled.div`
   display: flex;
   justify-content: center;

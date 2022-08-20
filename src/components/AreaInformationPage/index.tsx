@@ -88,7 +88,11 @@ const AreaInformationPage = () => {
             <HeaderTitle>{dummy.title}</HeaderTitle>
             <HeaderDescription>{dummy.description}</HeaderDescription>
           </HeaderContainer>
-          <BoxContainer backgroundColor={dummy.subColor} margin="40px 0 0 0">
+          <BoxContainer
+            backgroundColor={dummy.subColor}
+            margin="40px 0 0 0"
+            padding="24px 20px"
+          >
             {dummy.items.map((item, itemIndex) => (
               <Item key={itemIndex}>
                 <MiniLabel
@@ -120,7 +124,7 @@ const Group = styled.div``;
 
 const Item = styled.div`
   background: white;
-  border-radius: 26px;
+  border-radius: 24px;
   width: auto;
   height: 64px;
   display: flex;
