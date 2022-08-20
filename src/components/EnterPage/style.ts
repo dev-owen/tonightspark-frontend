@@ -1,4 +1,11 @@
 import styled from 'styled-components';
+import {
+  GRAY_100,
+  GRAY_300,
+  GRAY_50,
+  GRAY_700,
+  GRAY_800,
+} from '../../utils/color';
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -6,23 +13,23 @@ export const Wrapper = styled.div`
   text-align: center;
   font-size: 24px;
   font-weight: 400;
-  color: rgba(0, 0, 0, 0.8);
+  color: ${GRAY_800};
   display: flex;
   justify-content: center;
   align-content: center;
 `;
 
-export const EnterCardContainer = styled.div`
+export const EnterCardContainer = styled.div<{ isVerified?: boolean }>`
   width: 720px;
   height: 600px;
-  background-color: rgba(255, 255, 255, 1);
+  background-color: ${GRAY_50};
   margin: auto;
   display: flex;
   justify-content: center;
   align-content: center;
 
   .enterCardItem {
-    border: 1px solid rgba(0, 0, 0, 0.7);
+    border: 1px solid ${GRAY_700};
     height: fit-content;
     margin: auto;
 
@@ -42,26 +49,26 @@ export const EnterCardContainer = styled.div`
         width: 550px;
         height: 56px;
         border-radius: 28px;
-        border: 1px solid rgba(0, 0, 0, 0.1);
+        border: 1px solid ${GRAY_100};
         font-size: 20px;
         font-weight: 600;
         padding: 18px 67px;
         box-sizing: border-box;
-        background-color: rgba(250, 250, 250, 1);
+        background-color: ${GRAY_50};
 
         ::placeholder {
-          color: rgba(0, 0, 0, 0.3);
+          color: ${GRAY_300};
         }
       }
 
       .dot {
         height: 56px;
         width: 56px;
-        background-color: rgba(250, 250, 250, 1);
+        background-color: ${GRAY_50};
         border-radius: 50%;
         display: inline-block;
         margin: 0;
-        border: 1px solid rgba(0, 0, 0, 0.1);
+        border: 1px solid ${GRAY_100};
       }
     }
   }
