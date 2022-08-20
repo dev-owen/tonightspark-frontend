@@ -54,8 +54,6 @@ const ParticipationHour = () => {
     });
   }, [overallData]);
 
-  console.log(areaData);
-
   const convertTimeName = (time: string) => {
     switch (time) {
       case '12:00':
