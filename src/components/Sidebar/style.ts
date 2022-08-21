@@ -10,6 +10,7 @@ import {
 } from '../../utils/color';
 
 export const Wrapper = styled.div`
+  z-index: 9999;
   position: fixed;
   left: 0;
   width: 300px;
