@@ -14,7 +14,6 @@ function App() {
   const [hash, setHash] = useRecoilState(creatorHashState);
 
   useEffect(() => {
-    console.log('hello')
     const localHash = localStorage.getItem('hash');
     if (localHash) setHash(localHash);
 

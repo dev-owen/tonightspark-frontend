@@ -1,4 +1,5 @@
 import styled, { CSSProperties } from 'styled-components';
+import useMaxConcurrentUserQuery from '../../hooks/useMaxConcurrentUserQuery';
 import useParticipantInsightQuery, {
   ROLE_CODES,
   ROLE_COLORS,
@@ -36,13 +37,14 @@ const LOOP_COLORS = [
 
 const ParticipantInsightPage = () => {
   const { data, filters, toggleFilter, participantInsights } = useParticipantInsightQuery();
+  const maxConcurrentUserQuery = useMaxConcurrentUserQuery()
 
   return (
     <Layout>
       <HeaderContainer marginLeft="80px">
         <HeaderTitle>
           <Badge color={INDIGO_100} backgroundColor={INDIGO_10}>
-            {formatNumber(24000)}
+            {formatNumber(maxConcurrentUserQuery?.maxConcurrentUserCount || 0)}
           </Badge>
           Concurrent Connectors User
         </HeaderTitle>
