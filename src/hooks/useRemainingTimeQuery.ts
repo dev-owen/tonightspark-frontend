@@ -58,7 +58,7 @@ const useRemainingTimeQuery = () => {
     () => ({
       mainColor: ORANGE_100,
       subColor: ORANGE_10,
-      totalValue: data?.bounce?.totalNumber || 0,
+      totalValue: typeof data?.bounce?.totalNumber === 'number' ? +(data?.bounce?.totalNumber.toFixed(2)) : 0,
       title: 'Bounce Rate',
       description: 'Number of users who left immediately',
       items: Object.entries(data?.bounce?.areaData || {}).reduce(
