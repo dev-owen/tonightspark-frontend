@@ -55,6 +55,9 @@ const useParticipantInsightQuery = () => {
   const { isLoading, data } = useQuery<RawParticipantInsightResult>(
     `participantInsight/${mapHash}`,
     () => fetchParticipantInsight(mapHash),
+    {
+      refetchInterval: 1000
+    }
   );
 
   const toggleFilter = (ff: string) => {

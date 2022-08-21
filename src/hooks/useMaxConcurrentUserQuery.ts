@@ -19,6 +19,9 @@ const useMaxConcurrentUserQuery = () => {
   const { isLoading, data } = useQuery<number>(
     `maxConcurrentUser/${mapHash}`,
     () => fetchMaxConcurrentUserCount(mapHash),
+    {
+      refetchInterval: 3000
+    }
   );
 
   return { isLoading, maxConcurrentUserCount: data };

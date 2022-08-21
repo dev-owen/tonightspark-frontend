@@ -30,6 +30,9 @@ const useRemainingTimeQuery = () => {
   const { isLoading, data } = useQuery<NumberOfVisitors>(
     `remainingTime/${mapHash}`,
     () => fetchRemainingTime(mapHash),
+    {
+      refetchInterval: 1000
+    }
   );
 
   console.log({data})

@@ -24,9 +24,9 @@ const useNumberOfVisitorsQuey = () => {
   const { isLoading, data } = useQuery<NumberOfVisitors>(
     `numberOfVisitors/${mapHash}`,
     () => fetchUseNumberOfVisitors(mapHash),
-    // {
-    //   refetchInterval: 5000
-    // }
+    {
+      refetchInterval: 1000
+    }
   );
 
   const visitorInfo: AreaInformation = useMemo(
