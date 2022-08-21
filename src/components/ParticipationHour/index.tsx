@@ -13,6 +13,13 @@ export interface TimeDataInterface {
   count: number;
 }
 
+interface OverallData {
+  totalVisit: number,
+  timeCount: {
+    hour: number;
+    count: number;
+  }[]
+}
 interface AreaDataInterface {
   areaName: string;
   timeCountList: TimeDataInterface[];
@@ -20,7 +27,10 @@ interface AreaDataInterface {
 
 const ParticipationHour = () => {
   const [hash, setHash] = useRecoilState(creatorHashState);
-  const [overallData, setOverallData] = useState<TimeDataInterface[]>([]);
+  const [overallData, setOverallData] = useState<OverallData>({
+    totalVisit: 0,
+    timeCount: []
+  });
   const [areaData, setAreaData] = useState<AreaDataInterface[]>([]);
 
   const [minMax, setMinMax] = useState<{ min: number; max: number }>({
@@ -39,7 +49,7 @@ const ParticipationHour = () => {
 
     Promise.all([
       fetchPage2(`total-visit/${hash}`).then((res) => {
-        if (res) setOverallData([...res]);
+        if (res) setOverallData({ ...res });
       }),
       fetchPage2(`chart-area/${hash}`).then((res) => {
         if (res) setAreaData([...res]);
@@ -48,7 +58,7 @@ const ParticipationHour = () => {
   }, [hash]);
 
   useEffect(() => {
-    overallData.forEach((data) => {
+    overallData.timeCount.forEach((data) => {
       setMinMax((prevState) => ({
         min: Math.min(prevState.min, data.count),
         max: Math.max(prevState.max, data.count),
@@ -73,7 +83,7 @@ const ParticipationHour = () => {
       <HeaderContainer marginLeft="80px">
         <HeaderTitle>
           <Badge color={INDIGO_100} backgroundColor={INDIGO_10}>
-            {formatNumber(480864)}
+            {formatNumber(overallData.totalVisit)}
           </Badge>
           Total Visits
         </HeaderTitle>
@@ -83,24 +93,29 @@ const ParticipationHour = () => {
       </HeaderContainer>
       <$.OverallAreaHourChartContainer>
         <div className="overallLabel">Overall</div>
+
         <$.OverallChartContainer>
-          {overallData.map((data, index) => (
-            <div key={index}>
-              <div
-                className={`overallTimeLabel ${index % 2 === 1 ? 'hide' : ''}`}
-              >
-                {index % 2 === 0
-                  ? convertTimeName(String(data.time) + ':00')
-                  : '-'}
+          {overallData.timeCount.map((data, index) => {
+            console.log(data)
+            return (
+              <div key={index}>
+                <div
+                  className={`overallTimeLabel ${index % 2 === 1 ? 'hide' : ''}`}
+                >
+                  {index % 2 === 0
+                    ? convertTimeName(data.hour.toString())
+                    : '-'}
+                </div>
+                <$.RateBoxItem
+                  percentage={
+                    ((data.count - minMax.min) * 100) / (minMax.max - minMax.min)
+                  }
+                />
               </div>
-              <$.RateBoxItem
-                percentage={
-                  ((data.count - minMax.min) * 100) / (minMax.max - minMax.min)
-                }
-              />
-            </div>
-          ))}
+            )
+          })}
         </$.OverallChartContainer>
+
       </$.OverallAreaHourChartContainer>
       {areaData.map((area, index) => {
         return (
