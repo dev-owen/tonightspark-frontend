@@ -5,7 +5,11 @@ import ParticipationHour from '../ParticipationHour';
 import AreaInformationPage from '../AreaInformationPage';
 import ParticipantInsightPage from '../ParticipantInsightPage';
 
-const HomePage = () => {
+const HomePage = ({isLoggedIn}: {isLoggedIn: boolean}) => {
+  if (!isLoggedIn) {
+    return null
+  }
+
   return (
     <$.Wrapper>
       <$.HomeContainer>

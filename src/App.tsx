@@ -27,12 +27,13 @@ function App() {
     navigate(location.pathname === '/' ? '/home' : location.pathname);
   }, [hash]);
 
+
   return (
     <>
       <GlobalStyles />
       <Routes>
         <Route path="enter" element={<EnterPage />} />
-        <Route path="home/*" element={<HomePage />} />
+        <Route path="home/*" element={<HomePage isLoggedIn={isLoggedIn} />} />
       </Routes>
     </>
   );
