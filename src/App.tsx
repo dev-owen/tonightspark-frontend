@@ -14,15 +14,18 @@ function App() {
   const [hash, setHash] = useRecoilState(creatorHashState);
 
   useEffect(() => {
+    console.log('hello')
     const localHash = localStorage.getItem('hash');
     if (localHash) setHash(localHash);
+
     if (!hash && !localHash) {
       setIsLoggedIn(false);
       navigate('/enter');
-    } else {
-      setIsLoggedIn(true);
-      navigate(location.pathname);
+      return
     }
+
+    setIsLoggedIn(true);
+    navigate(location.pathname === '/' ? '/home' : location.pathname);
   }, [hash]);
 
   return (
