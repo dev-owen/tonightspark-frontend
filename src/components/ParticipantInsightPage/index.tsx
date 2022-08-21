@@ -35,7 +35,7 @@ const LOOP_COLORS = [
 ];
 
 const ParticipantInsightPage = () => {
-  const { data, filters, toggleFilter } = useParticipantInsightQuery();
+  const { data, filters, toggleFilter, participantInsights } = useParticipantInsightQuery();
 
   return (
     <Layout>
@@ -59,28 +59,29 @@ const ParticipantInsightPage = () => {
         {Object.keys(ROLES).map((role) => (
           <BigLabel
             backgroundColor={
-              filters.some((filter) => filter === role)
-                ? ROLE_COLORS[role].on
-                : ROLE_COLORS[role].off
+              participantInsights[role]?.hasData ?
+                filters.some((filter) => filter === role)
+                  ? ROLE_COLORS[role].on
+                  : ROLE_COLORS[role].off : ROLE_COLORS[role].off
             }
             key={role}
-            onClick={() => toggleFilter(role)}
+            onClick={participantInsights[role]?.hasData ? () => toggleFilter(role) : () => { }}
           >
             {role}
           </BigLabel>
         ))}
       </LabelList>
       <Group>
-        {data?.filter(({ authorityName: code }) => filters.some((filter) => filter === ROLE_CODES[code]))
-          .map(({ authorityName: code, mapData }) => (
-            <BoxContainer backgroundColor={'white'} width="500px" key={code}>
+        {Object.values(participantInsights)?.filter(({ role }) => filters.some((filter) => filter === role)).filter(({ hasData }) => hasData)
+          .map(({ role, mapData }) => (
+            <BoxContainer backgroundColor={'white'} width="500px" key={role}>
               <>
                 <ItemTitle>
-                  <Bar color={ROLE_COLORS[ROLE_CODES[code]].on} /> {ROLE_CODES[code]}
+                  <Bar color={ROLE_COLORS[role].on} /> {role}
                 </ItemTitle>
                 {mapData &&
                   Object.entries(mapData)
-                    .filter(([_, [{ time, count }]]) => time !== 0 && count !== 0)
+                    .filter(([_, [{ time, count }]]) => time !== 0 || count !== 0)
                     .map(
                       ([area, [{ time, count }]], index) => (
                         <Item key={index}>

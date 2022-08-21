@@ -65,7 +65,33 @@ const useParticipantInsightQuery = () => {
     }
   };
 
-  return { isLoading, data, filters, toggleFilter };
+  const participantInsights: Record<
+    string,
+    {
+      hasData: boolean;
+      role: string;
+      mapData: Record<string, [{ time: number; count: number }]>;
+    }
+  > = useMemo(() => {
+    return (
+      data?.reduce((acc, cur) => {
+        return {
+          ...acc,
+          [ROLE_CODES[cur.authorityName]]: {
+            mapData: cur.mapData,
+            role: ROLE_CODES[cur.authorityName],
+            hasData: ['1000', '2000'].includes(cur.authorityName)
+              ? false
+              : Object.values(cur.mapData).some(
+                  ([{ time, count }]) => time !== 0 || count !== 0,
+                ),
+          },
+        };
+      }, {}) || {}
+    );
+  }, [data]);
+
+  return { isLoading, data, filters, toggleFilter, participantInsights };
 };
 
 export default useParticipantInsightQuery;
