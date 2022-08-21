@@ -35,6 +35,8 @@ const ParticipationHour = () => {
   };
 
   useEffect(() => {
+    if (!hash) return
+
     Promise.all([
       fetchPage2(`total-visit/${hash}`).then((res) => {
         if (res) setOverallData([...res]);
@@ -43,7 +45,7 @@ const ParticipationHour = () => {
         if (res) setAreaData([...res]);
       }),
     ]);
-  }, []);
+  }, [hash]);
 
   useEffect(() => {
     overallData.forEach((data) => {
