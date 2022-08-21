@@ -1,5 +1,6 @@
 import styled, { CSSProperties } from 'styled-components';
 import useParticipantInsightQuery, {
+  ROLE_CODES,
   ROLE_COLORS,
 } from '../../hooks/useParticipantInsightQuery';
 import { ROLES } from '../../state/filterState';
@@ -70,36 +71,37 @@ const ParticipantInsightPage = () => {
         ))}
       </LabelList>
       <Group>
-        {Object.keys(ROLES)
-          .filter((role) => filters.some((filter) => filter === role))
-          .map((role) => (
-            <BoxContainer backgroundColor={'white'} width="500px" key={role}>
+        {data?.filter(({ authorityName: code }) => filters.some((filter) => filter === ROLE_CODES[code]))
+          .map(({ authorityName: code, mapData }) => (
+            <BoxContainer backgroundColor={'white'} width="500px" key={code}>
               <>
                 <ItemTitle>
-                  <Bar color={ROLE_COLORS[role].on}/> {role}
+                  <Bar color={ROLE_COLORS[ROLE_CODES[code]].on} /> {ROLE_CODES[code]}
                 </ItemTitle>
-                {data &&
-                  Object.entries(data[role]).map(
-                    ([area, { visitedCount, stayTime }], index) => (
-                      <Item key={index}>
-                        <MiniLabel
-                          backgroundColor={
-                            LOOP_COLORS[index % LOOP_COLORS.length]
-                          }
-                        >
-                          {area}
-                        </MiniLabel>
-                        <ItemValue>
-                          <span>Enter:</span>
-                          {visitedCount}
-                        </ItemValue>
-                        <ItemValue>
-                          <span>Stay Time:</span>
-                          {formatSeconds(stayTime)}
-                        </ItemValue>
-                      </Item>
-                    ),
-                  )}
+                {mapData &&
+                  Object.entries(mapData)
+                    .filter(([_, [{ time, count }]]) => time !== 0 && count !== 0)
+                    .map(
+                      ([area, [{ time, count }]], index) => (
+                        <Item key={index}>
+                          <MiniLabel
+                            backgroundColor={
+                              LOOP_COLORS[index % LOOP_COLORS.length]
+                            }
+                          >
+                            {area}
+                          </MiniLabel>
+                          <ItemValue>
+                            <span>Enter:</span>
+                            {count}
+                          </ItemValue>
+                          <ItemValue>
+                            <span>Stay Time:</span>
+                            {formatSeconds(time)}
+                          </ItemValue>
+                        </Item>
+                      ),
+                    )}
               </>
             </BoxContainer>
           ))}
@@ -120,10 +122,10 @@ const LabelList = styled.div`
   gap: 24px;
 `;
 
-const Bar = styled.div<{color: CSSProperties['color']}>`
+const Bar = styled.div<{ color: CSSProperties['color'] }>`
   width: 4px;
   height: 32px;
-  background: ${({color}) => color};
+  background: ${({ color }) => color};
   border-radius: 4px;
 `;
 const ItemTitle = styled.div`

@@ -25,90 +25,43 @@ export const ROLE_COLORS = {
   [ROLES['Manager']]: { on: YELLOW_100, off: YELLOW_10 },
   [ROLES['Owner']]: { on: ORANGE_100, off: ORANGE_10 },
 };
-
-const fetchParticipantInsight = async (mapHash: string) => {
-  //   const res = await fetch(
-  //     `http://54.164.45.6:8080/api/v1/collect/area-user/${mapHash}`,
-  //   );
-  //   const data = await res.json();
-  //   return data;
-  return {
-    [ROLES.GUEST]: {
-      area1: {
-        visitedCount: 20,
-        stayTime: 12257,
-      },
-      area2: {
-        visitedCount: 40,
-        stayTime: 40,
-      },
-    },
-    [ROLES.Member]: {
-      area1: {
-        visitedCount: 20,
-        stayTime: 20,
-      },
-      area2: {
-        visitedCount: 40,
-        stayTime: 40,
-      },
-    },
-    [ROLES.Staff]: {
-      area1: {
-        visitedCount: 20,
-        stayTime: 20,
-      },
-      area2: {
-        visitedCount: 40,
-        stayTime: 40,
-      },
-    },
-    [ROLES.Editor]: {
-      area1: {
-        visitedCount: 20,
-        stayTime: 20,
-      },
-      area2: {
-        visitedCount: 40,
-        stayTime: 600,
-      },
-    },
-    [ROLES.Manager]: {
-      area1: {
-        visitedCount: 20,
-        stayTime: 20,
-      },
-      area2: {
-        visitedCount: 40,
-        stayTime: 40,
-      },
-    },
-    [ROLES.Owner]: {
-      area1: {
-        visitedCount: 20,
-        stayTime: 20,
-      },
-      area2: {
-        visitedCount: 40,
-        stayTime: 40,
-      },
-    },
-  };
+export const ROLE_CODES = {
+  '-1': ROLES['GUEST'],
+  '0': ROLES['Member'],
+  '1000': ROLES['Staff'],
+  '2000': ROLES['Editor'],
+  '3000': ROLES['Manager'],
+  '3001': ROLES['Owner'],
 };
 
+type ROLE_CODE = '-1' | '0' | '1000' | '2000' | '3000' | '3001';
+type RawParticipantInsightResult = {
+  authorityName: ROLE_CODE;
+  mapData: Record<string, [{ time: number; count: number }]>;
+}[];
+
+const fetchParticipantInsight = async (mapHash: string) => {
+  // return JSON.parse('[{"authorityName":"1000","mapData":{"CHAIN":[{"time":0,"count":0}],"testarea":[{"time":0,"count":0}],"ZEP":[{"time":0,"count":0}],"MS":[{"time":0,"count":0}],"area1":[{"time":0,"count":100}],"area2":[{"time":0,"count":40}],"NONE":[{"time":0,"count":0}],"AWS":[{"time":0,"count":0}],"JUNCTION":[{"time":0,"count":0}]}},{"authorityName":"3000","mapData":{"CHAIN":[{"time":0,"count":0}],"testarea":[{"time":0,"count":0}],"ZEP":[{"time":0,"count":0}],"MS":[{"time":0,"count":0}],"area1":[{"time":0,"count":0}],"area2":[{"time":0,"count":60}],"NONE":[{"time":0,"count":0}],"AWS":[{"time":0,"count":0}],"JUNCTION":[{"time":0,"count":0}]}},{"authorityName":"3001","mapData":{"CHAIN":[{"time":19,"count":159}],"testarea":[{"time":0,"count":0}],"ZEP":[{"time":16,"count":145}],"MS":[{"time":23,"count":6}],"area1":[{"time":0,"count":109}],"area2":[{"time":0,"count":0}],"NONE":[{"time":81,"count":195}],"AWS":[{"time":14,"count":0}],"JUNCTION":[{"time":14,"count":25}]}},{"authorityName":"2000","mapData":{"CHAIN":[{"time":0,"count":0}],"testarea":[{"time":0,"count":0}],"ZEP":[{"time":0,"count":0}],"MS":[{"time":0,"count":0}],"area1":[{"time":0,"count":3}],"area2":[{"time":0,"count":0}],"NONE":[{"time":0,"count":0}],"AWS":[{"time":0,"count":0}],"JUNCTION":[{"time":0,"count":0}]}},{"authorityName":"-1","mapData":{"CHAIN":[{"time":8,"count":4}],"testarea":[{"time":0,"count":0}],"ZEP":[{"time":20,"count":959}],"MS":[{"time":17,"count":0}],"area1":[{"time":0,"count":60}],"area2":[{"time":0,"count":0}],"NONE":[{"time":66,"count":942}],"AWS":[{"time":11,"count":1}],"JUNCTION":[{"time":8,"count":3}]}},{"authorityName":"0","mapData":{"CHAIN":[{"time":0,"count":0}],"testarea":[{"time":0,"count":0}],"ZEP":[{"time":0,"count":0}],"MS":[{"time":0,"count":0}],"area1":[{"time":0,"count":1}],"area2":[{"time":0,"count":60}],"NONE":[{"time":0,"count":0}],"AWS":[{"time":0,"count":0}],"JUNCTION":[{"time":0,"count":0}]}}]')
+  const res = await fetch(
+    `https://zepi-next.vercel.app/api/v1/page1/${mapHash}`,
+  );
+  const data = await res.json();
+  return data;
+};
 
 const useParticipantInsightQuery = () => {
   const mapHash = useRecoilValue(creatorHashState);
   const [filters, setFilter] = useRecoilState(filterState);
-  const { isLoading, data } = useQuery(`participantInsight/${mapHash}`, () =>
-    fetchParticipantInsight(mapHash),
+  const { isLoading, data } = useQuery<RawParticipantInsightResult>(
+    `participantInsight/${mapHash}`,
+    () => fetchParticipantInsight(mapHash),
   );
 
   const toggleFilter = (ff: string) => {
     if (filters.find((f) => f === ff)) {
-      setFilter(filters.filter((f) => f !== ff))
+      setFilter(filters.filter((f) => f !== ff));
     } else {
-      setFilter([...filters, ff])
+      setFilter([...filters, ff]);
     }
   };
 
